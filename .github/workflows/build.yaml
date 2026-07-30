@@ -236,6 +236,7 @@ jobs:
             awk '!/Update changelog/ && NF {print "- " $0 "\n"}' >> "$out"
           done
       - name: Push to telegram
+        continue-on-error: true
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TAG: ${{ github.ref_name }}
@@ -279,6 +280,7 @@ jobs:
 
       - name: Push to Homebrew tap
         if: ${{ env.IS_STABLE == 'true' }}
+        continue-on-error: true
         uses: cpina/github-action-push-to-another-repository@v1.7.2
         env:
           SSH_DEPLOY_KEY: ${{ secrets.HOMEBREW_SSH_DEPLOY_KEY }}
@@ -301,6 +303,7 @@ jobs:
 
       - name: Push to fdroid repo
         if: ${{ env.IS_STABLE == 'true' }}
+        continue-on-error: true
         uses: cpina/github-action-push-to-another-repository@v1.7.2
         env:
           SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
