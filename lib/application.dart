@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'pages/login/login.dart';
 import 'pages/pages.dart';
 
 class Application extends ConsumerStatefulWidget {
@@ -180,7 +181,12 @@ class ApplicationState extends ConsumerState<Application> {
           home: child!,
         );
       },
-      child: const HomePage(),
+      child: Consumer(
+        builder: (_, ref, _) {
+          final isLoggedIn = ref.watch(isLoggedInProvider);
+          return isLoggedIn ? const HomePage() : const LoginPage();
+        },
+      ),
     );
   }
 

@@ -89,6 +89,23 @@ class Preferences {
     final sharedPreferencesIns = await sharedPreferencesCompleter.future;
     await sharedPreferencesIns?.clear();
   }
+
+  Future<bool> getIsLoggedIn() async {
+    final preferences = await sharedPreferencesCompleter.future;
+    return preferences?.getBool('isLoggedIn') ?? false;
+  }
+
+  Future<void> setLoginData({required bool isLoggedIn, required String tgid, required String uuid}) async {
+    final preferences = await sharedPreferencesCompleter.future;
+    await preferences?.setBool('isLoggedIn', isLoggedIn);
+    await preferences?.setString('tgid', tgid);
+    await preferences?.setString('uuid', uuid);
+  }
+
+  Future<String> getUuid() async {
+    final preferences = await sharedPreferencesCompleter.future;
+    return preferences?.getString('uuid') ?? '';
+  }
 }
 
 final preferences = Preferences();

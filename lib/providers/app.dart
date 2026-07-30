@@ -179,6 +179,8 @@ class Init extends _$Init with AutoDisposeNotifierMixin {
   }
 }
 
+final isLoggedInProvider = StateProvider<bool>((ref) => false);
+
 @Riverpod(keepAlive: true)
 class CurrentPageLabel extends _$CurrentPageLabel
     with AutoDisposeNotifierMixin {

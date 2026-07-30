@@ -63,6 +63,34 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
       if (!isEdit)
         Consumer(
           builder: (_, ref, _) {
+            final currentProfile = ref.watch(currentProfileProvider);
+            if (currentProfile == null) return const SizedBox.shrink();
+            final isUpdating = ref.watch(isUpdatingProvider(currentProfile.updatingKey));
+            return Tooltip(
+              message: '更新订阅',
+              child: IconButton(
+                icon: isUpdating
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.sync),
+                onPressed: isUpdating
+                    ? null
+                    : () {
+                        ref.read(profilesActionProvider.notifier).updateProfile(
+                              currentProfile,
+                              showLoading: true,
+                            );
+                      },
+              ),
+            );
+          },
+        ),
+      if (!isEdit)
+        Consumer(
+          builder: (_, ref, _) {
             final coreStatus = ref.watch(coreStatusProvider);
             return Tooltip(
               message: appLocalizations.coreStatus,

@@ -32,6 +32,7 @@ class Navigation {
         label: PageLabel.profiles,
         builder: (_) =>
             const ProfilesView(key: GlobalObjectKey(PageLabel.profiles)),
+        modes: [],
       ),
       NavigationItem(
         icon: const Icon(Icons.view_timeline),

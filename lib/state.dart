@@ -107,6 +107,7 @@ class GlobalState {
     );
     final profiles = await database.profilesDao.query().get();
     container.read(profilesProvider.notifier).setAndReorder(profiles);
+    container.read(isLoggedInProvider.notifier).state = await preferences.getIsLoggedIn();
     await AppLocalizations.load(
       utils.getLocaleForString(config.appSettingProps.locale) ??
           WidgetsBinding.instance.platformDispatcher.locale,
